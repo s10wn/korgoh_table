@@ -1,17 +1,16 @@
 export interface DataType {
     id: number,
-    name: string;
-    address: string;
+    name: string,
+    address: string,
+    name_order: string,
     created_date: string,
-    end_plans: string,
-    real_ending: string,
+    end_date: string,
+    actual_date: string,
     price: number,
-    pred: number,
-    ostatok: number,
-    rasxod_material: number,
+    prepayment: number,
     status: string,
     comment: string,
-    warning: string,
-    whoisboss: string,
-    deal: string,
+    difficulty: string,
+    responsible: string,
+    offer: string,
 }

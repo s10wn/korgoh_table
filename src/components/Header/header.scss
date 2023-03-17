@@ -3,8 +3,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-.header_logo{
+    
+    .header_logo{
     display: flex;
     align-items: center;
     column-gap: 10px;
@@ -12,5 +12,10 @@
         width: 100px;
         height: 100px;
         background: red;
+        }
     }
-}
+   
+} 
+:where(.css-dev-only-do-not-override-1me4733).ant-modal-root .ant-modal-centered .ant-modal{
+        width: 1700px !important;
+    }

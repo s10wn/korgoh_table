@@ -3,6 +3,7 @@ import React from "react";
 import type { Costs } from "../types/costs";
 import { cost } from "../constant/costs";
 import { useParams } from "react-router-dom";
+import { Header } from "./Header/Header";
 export const CostTable: React.FC = () => {
     const { id } = useParams()
     console.log(id);
@@ -26,5 +27,10 @@ export const CostTable: React.FC = () => {
         },
     ];
 
-    return <Table columns={columns} dataSource={cost} />;
+    return (
+        <>
+            <Header />
+            <Table columns={columns} dataSource={cost} />
+        </>
+    )
 };

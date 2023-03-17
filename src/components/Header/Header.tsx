@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { Button, Modal } from 'antd'
+import { Button } from 'antd'
 import './header.scss'
+import { Modals } from "../Modal/Modals";
 
 
 export const Header = () => {
     const [modal2Open, setModal2Open] = useState(false);
+
     return <div className="header">
         <div className="header_logo">
             <div className="logo"></div>
@@ -13,16 +15,6 @@ export const Header = () => {
         <div className="header_btn">
             <Button onClick={() => setModal2Open(true)} type="primary">Добавить заказ</Button>
         </div>
-        <Modal
-            title="Vertically centered modal dialog"
-            centered
-            open={modal2Open}
-            onOk={() => setModal2Open(false)}
-            onCancel={() => setModal2Open(false)}
-        >
-            <p>some contents...</p>
-            <p>some contents...</p>
-            <p>some contents...</p>
-        </Modal>
+        {modal2Open && <Modals active={true} setmodal={setModal2Open} />}
     </div>;
 };
