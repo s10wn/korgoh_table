@@ -9,12 +9,12 @@ export const Header = () => {
 
     return <div className="header">
         <div className="header_logo">
-            <div className="logo"></div>
-            <h3>Здравствуйте, Парвиз!</h3>
+            <h3>Здравствуйте!</h3>
+            <p>Table by s10wn beta</p>
         </div>
         <div className="header_btn">
             <Button onClick={() => setModal2Open(true)} type="primary">Добавить заказ</Button>
         </div>
-        {modal2Open && <Modals active={true} setmodal={setModal2Open} />}
+        {modal2Open && <Modals active={true} setmodal={setModal2Open} add={true} />}
     </div>;
 };

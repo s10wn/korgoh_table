@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, Modal } from 'antd';
 import "./Modal.scss"
-import ky from 'ky';
+import type { DataType } from '../../types/DataType';
+import axios from 'axios';
 
 
 const onFinishFailed = (errorInfo: any) => {
@@ -11,19 +12,49 @@ type Modals = {
   active: boolean;
   setmodal: React.Dispatch<React.SetStateAction<boolean>>;
   value?: object;
+  add?: boolean;
 }
-export const Modals: React.FC<Modals> = ({ active, setmodal, value }): JSX.Element => {
+type EditOrder = {
+  id?: number,
+  name?: string,
+  address?: string,
+  name_order?: string,
+  created_date?: string,
+  end_date?: string,
+  actual_date?: string,
+  price?: number,
+  prepayment?: number,
+  status?: string,
+  comment?: string,
+  difficulty?: string,
+  responsible?: string,
+  offer?: string,
+}
+export const Modals: React.FC<Modals> = ({ active, setmodal, value, add }): JSX.Element => {
   const [modal2Open, setModal2Open] = useState<boolean>(false);
-  const [val, setVal] = useState({})
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
-    console.log(values)
-    ky.post('http://localhost:8080/api/order', { json: values }).json().then((res) => {
-      setModal2Open(false)
-      setmodal(false)
-    })
-  };
+  const [val, setVal] = useState<EditOrder>({})
 
+  const onFinish = (values: EditOrder) => {
+    console.log('Success:', values);
+
+    if (add) {
+      axios.post('http://86.110.212.178:8081/api/order', values).then(() => {
+        setModal2Open(false)
+        setmodal(false)
+      })
+    }
+    else {
+      values.id = val.id
+      axios.put('http://86.110.212.178:8081/api/order', values).then(() => {
+        setModal2Open(false)
+        setmodal(false)
+      })
+      // ky.put('http://localhost:8081/api/order', { json: values }).json().then(() => {
+      //   setModal2Open(false)
+      //   setmodal(false)
+      // })
+    }
+  };
 
   const onExit = () => {
     setModal2Open(false)
@@ -31,7 +62,9 @@ export const Modals: React.FC<Modals> = ({ active, setmodal, value }): JSX.Eleme
   }
   useEffect(() => {
     setModal2Open(active)
-    console.log(value)
+    if (value) {
+      setVal(value)
+    }
   }, [])
 
   return (
@@ -48,11 +81,33 @@ export const Modals: React.FC<Modals> = ({ active, setmodal, value }): JSX.Eleme
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
         style={{ maxWidth: 1200 }}
-        initialValues={{ remember: true }}
+        initialValues={{
+          id: val.id,
+          name: val.name,
+          address: val.address,
+          name_order: val.name_order,
+          created_date: val.created_date,
+          end_date: val.end_date,
+          actual_date: val.actual_date,
+          price: val.price,
+          prepayment: val.prepayment,
+          status: val.status,
+          comment: val.comment,
+          difficulty: val.difficulty,
+          responsible: val.responsible,
+          offer: val.offer
+        }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
+        {/* <Form.Item
+          label="Наименование заказа"
+          name="id"
+          rules={[{ required: true, message: 'Please input your username!' }]}
+        >
+          <Input />
+        </Form.Item> */}
         <div className="input_card">
           <Form.Item
             label="Наименование заказа"
@@ -67,7 +122,8 @@ export const Modals: React.FC<Modals> = ({ active, setmodal, value }): JSX.Eleme
 
             rules={[{ required: true, message: 'Please input your username!' }]}
           >
-            <Input defaultValue={'zxc'} />
+            <Input />
+
           </Form.Item>
           <Form.Item
             label="Имя Заказчика"
@@ -85,6 +141,7 @@ export const Modals: React.FC<Modals> = ({ active, setmodal, value }): JSX.Eleme
             rules={[{ required: true, message: 'Please input your username!' }]}
           >
             <Input />
+
           </Form.Item>
           <Form.Item
             label="Дата окончание "
@@ -92,6 +149,7 @@ export const Modals: React.FC<Modals> = ({ active, setmodal, value }): JSX.Eleme
             rules={[{ required: true, message: 'Please input your username!' }]}
           >
             <Input />
+
           </Form.Item>
           <Form.Item
             label="Реальная дата"
@@ -99,6 +157,7 @@ export const Modals: React.FC<Modals> = ({ active, setmodal, value }): JSX.Eleme
             rules={[{ required: true, message: 'Please input your username!' }]}
           >
             <Input />
+
           </Form.Item>
         </div>
         <div className="input_card">
@@ -108,6 +167,7 @@ export const Modals: React.FC<Modals> = ({ active, setmodal, value }): JSX.Eleme
             rules={[{ required: true, message: 'Please input your username!' }]}
           >
             <Input />
+
           </Form.Item>
           <Form.Item
             label="Предоплата"
@@ -122,6 +182,7 @@ export const Modals: React.FC<Modals> = ({ active, setmodal, value }): JSX.Eleme
             rules={[{ required: true, message: 'Please input your username!' }]}
           >
             <Input />
+
           </Form.Item>
         </div>
         <div className="input_card">
@@ -131,6 +192,7 @@ export const Modals: React.FC<Modals> = ({ active, setmodal, value }): JSX.Eleme
             rules={[{ required: true, message: 'Please input your username!' }]}
           >
             <Input />
+
           </Form.Item>
           <Form.Item
             label="Проблемы"
@@ -138,6 +200,7 @@ export const Modals: React.FC<Modals> = ({ active, setmodal, value }): JSX.Eleme
             rules={[{ required: true, message: 'Please input your username!' }]}
           >
             <Input />
+
           </Form.Item>
         </div>
         <div className="input_card">
@@ -148,6 +211,7 @@ export const Modals: React.FC<Modals> = ({ active, setmodal, value }): JSX.Eleme
             rules={[{ required: true, message: 'Please input your username!' }]}
           >
             <Input />
+
           </Form.Item>
           <Form.Item
             label="Договор"
@@ -155,6 +219,7 @@ export const Modals: React.FC<Modals> = ({ active, setmodal, value }): JSX.Eleme
             rules={[{ required: true, message: 'Please input your username!' }]}
           >
             <Input />
+
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
             <Button type="primary" htmlType="submit">

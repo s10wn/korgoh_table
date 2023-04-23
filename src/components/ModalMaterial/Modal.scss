@@ -1,0 +1,22 @@
+.form_add{
+    display: flex;
+    margin-top: 30px;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.input_card{
+    width: 100%;
+    flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    div.css-dev-only-do-not-override-1me4733{
+        width: 600px;
+    }
+    :where(.css-dev-only-do-not-override-1me4733).ant-input{
+        height: 40px !important;
+        width: 80% !important;
+    }
+}

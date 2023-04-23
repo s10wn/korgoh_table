@@ -1,5 +1,7 @@
-export interface Costs {
+type EditOrder = {
     id: number,
     title: string,
-    cost: number,
+    price: number,
+    user_id?: number,
 }
+export default EditOrder
