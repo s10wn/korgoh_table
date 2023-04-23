@@ -49,10 +49,6 @@ export const Modals: React.FC<Modals> = ({ active, setmodal, value, add }): JSX.
         setModal2Open(false)
         setmodal(false)
       })
-      // ky.put('http://localhost:8081/api/order', { json: values }).json().then(() => {
-      //   setModal2Open(false)
-      //   setmodal(false)
-      // })
     }
   };
 
@@ -69,7 +65,7 @@ export const Modals: React.FC<Modals> = ({ active, setmodal, value, add }): JSX.
 
   return (
     <Modal
-      title="Vertically centered modal dialog"
+      title="Добавить заказ"
       centered
       open={modal2Open}
       onCancel={onExit}
@@ -223,7 +219,7 @@ export const Modals: React.FC<Modals> = ({ active, setmodal, value, add }): JSX.
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
             <Button type="primary" htmlType="submit">
-              Submit
+              Добавить
             </Button>
           </Form.Item>
         </div>

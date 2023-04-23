@@ -2,6 +2,7 @@ import React from "react";
 import  PinCode  from '@uiw/react-pin-code';
 import { useNavigate } from "react-router-dom";
 import { message } from 'antd';
+import "./login.scss"
 
 export const Login = () => {
     const [messageApi, contextHolder] = message.useMessage();
@@ -9,7 +10,7 @@ export const Login = () => {
 const navigate = useNavigate();
 
 const isLogin = (val: string[]) => {
-    if(Number(val.join('')) === 1234){
+    if(Number(val.join('')) === 4499){
         localStorage.setItem('authorized', 'true')
         messageApi.open({
             type: 'success',
@@ -26,9 +27,10 @@ const isLogin = (val: string[]) => {
           });
     }
 }
-  return <div>Login
+  return <div className="login_main">
     {contextHolder}
-    <PinCode autoFocus value={['','','','']} onChange={(val) => val[3] !== '' && isLogin(val)}  />
+    <h1>Введите свой пин-код</h1>
+    <PinCode size="large" autoFocus value={['','','','']} onChange={(val) => val[3] !== '' && isLogin(val)}  />
     
   </div>;
 };

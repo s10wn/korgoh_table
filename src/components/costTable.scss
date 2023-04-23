@@ -1,0 +1,13 @@
+.header_btn {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    column-gap: 40px;
+
+    .btn_link {
+        border: 1px solid #1677ff;
+    }
+    button {
+        height: 35px;
+    }
+}

@@ -50,7 +50,7 @@ export const ModalMaterial: React.FC<Modals> = ({ active, setmodal, ids, setdata
 
   return (
     <Modal
-      title="Vertically centered modal dialog"
+      title="Добавить материал"
       centered
       open={modal2Open}
       onCancel={onExit}
@@ -90,7 +90,7 @@ export const ModalMaterial: React.FC<Modals> = ({ active, setmodal, ids, setdata
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
             <Button type="primary" htmlType="submit">
-              Submit
+              Добавить
             </Button>
           </Form.Item>
         </div>

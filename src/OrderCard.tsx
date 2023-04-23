@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Button, Modal, Space, Form, Input, } from "antd";
-import { Link, useParams } from "react-router-dom";
-import {DeleteOutlined, FileTextOutlined} from '@ant-design/icons'
-
+import { Button, message, Popconfirm,} from "antd";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import {DeleteOutlined,LeftOutlined, FileTextOutlined} from '@ant-design/icons'
+import "./orderCard.scss"
 
 
 
@@ -27,13 +27,23 @@ type Order ={
 export const OrderCard= () => {
     const {id} = useParams()
     const [data, setData] = useState<Order>({});
+    const [modal1Open, setModal1Open] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get(`http://86.110.212.178:8081/api/order/${id}`).then((res) => {
             setData(res.data)
         })
     }, [])
-  return (<div className="order_info-main">
+    const confirm = (e: React.MouseEvent<HTMLElement> | undefined) => {
+        axios.delete(`http://86.110.212.178:8081/api/order/${id}`).then((res) => (setData(res.data)))
+
+        message.success('Click on Yes');
+      };
+    
+
+  return <div className="order_info-main">
+    <Button className="order_back" type="link" onClick={() => navigate(-1)} ><LeftOutlined/></Button>
     <h1>{data.name}</h1>
     <hr />
         <p className="order_info">Имя заказчика: <h3>{data.name_order}</h3></p>
@@ -51,11 +61,20 @@ export const OrderCard= () => {
         <p className="order_info">Договор заказа: <h3>{data.offer}</h3></p>
 
         <div className="order_btn">
-        <Space><Button  type="primary"  size="large"><Link to={`/costs/${id}`}><FileTextOutlined /></Link></Button>
-        <Button type="primary"   size="large"><DeleteOutlined /></Button></Space>
+      <Button  type="primary"  size="large"><Link to={`/costs/${id}`}><FileTextOutlined /></Link></Button>
+      <Popconfirm
+    title="Удалить заказ?"
+    description="Вы уверены, что хотите удалить заказ?"
+    onConfirm={confirm}
+    okText="Да"
+    cancelText="Нет"
+  >
+        <Button type="primary"  size="large"><DeleteOutlined /></Button>
+
+  </Popconfirm> 
        
     </div>
   </div>
 
-  );
+  
 };

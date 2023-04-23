@@ -1,0 +1,20 @@
+.login_main {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .w-pin-code {
+        column-gap: 20px;
+    }
+    .w-input {
+        transform: scale(1.2);
+    }
+
+    h1 {
+        margin-bottom: 30px;
+        text-align: center;
+        font-size: 24px;
+    }
+}
